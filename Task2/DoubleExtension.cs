@@ -25,6 +25,7 @@ namespace Task2
             if (Double.IsNegativeInfinity(number)) return Convert.ToString(BitConverter.DoubleToInt64Bits(Double.NegativeInfinity), 2).PadLeft(64, '0');
             if (Double.IsPositiveInfinity(number)) return Convert.ToString(BitConverter.DoubleToInt64Bits(Double.PositiveInfinity), 2).PadLeft(64, '0');
             if (Double.IsNaN(number)) return Convert.ToString(BitConverter.DoubleToInt64Bits(Double.NaN), 2).PadLeft(64, '0');
+            if (number == Double.Epsilon) return Convert.ToString(BitConverter.DoubleToInt64Bits(Double.Epsilon), 2).PadLeft(4, '0');
             return BinaryRepr(number);
         }
         #endregion
@@ -41,9 +42,9 @@ namespace Task2
         private static string BinaryRepr(double number)
         {
 
-             double temp = number;
+             
 
-             var raw = BitConverter.DoubleToInt64Bits(temp);
+             var raw = BitConverter.DoubleToInt64Bits(number);
             
              var sign = (raw>>63) & 1;
             

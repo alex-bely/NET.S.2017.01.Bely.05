@@ -12,8 +12,54 @@ namespace Task1
         /// </summary>
     public static class GreatestCommonDivisor
     {
-       
+
         #region Public members
+
+        /// <summary>
+        /// Returns the GCD of more than one number, calculated with Euclid algorithm.
+        /// Also calculates ellapsed time in milliseconds
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <returns>The GCD of received values</returns>
+
+        public static int ClassicGCD(int number1, int number2)
+        {
+
+            var watch = Stopwatch.StartNew();
+            int GCD = GCD_Euclid(Math.Abs(number1),Math.Abs(number2));
+            watch.Stop();
+            var elapsedMs = watch.Elapsed.TotalMilliseconds;
+            //Debug.WriteLine(elapsedMs);
+            Console.WriteLine(elapsedMs);  //There are some troubles with NUnit3 adapter and Debug.WriteLine 
+                                           //that's why Console.WriteLine is used for test output.
+
+            return GCD;
+
+        }
+
+        /// <summary>
+        /// Returns the GCD of more than one number, calculated with Euclid algorithm.
+        /// Also calculates ellapsed time in milliseconds
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <param name="number3">Third number</param>
+        /// <returns>The GCD of received values</returns>
+        public static int ClassicGCD(int number1, int number2, int number3)
+        {
+            if (number3 == 0) Swap(ref number1, ref number3);
+            var watch = Stopwatch.StartNew();
+            int GCD = GCD_Euclid(Math.Abs(number1), GCD_Euclid(Math.Abs(number2),Math.Abs(number3)));
+            watch.Stop();
+            var elapsedMs = watch.Elapsed.TotalMilliseconds;
+            //Debug.WriteLine(elapsedMs);
+            Console.WriteLine(elapsedMs);  //There are some troubles with NUnit3 adapter and Debug.WriteLine 
+                                           //that's why Console.WriteLine is used for test output.
+
+            return GCD;
+
+        }
 
         /// <summary>
         /// Returns the GCD of more than one number, calculated with Euclid algorithm.
@@ -27,7 +73,7 @@ namespace Task1
         {
             
             if (numbers == null) throw new ArgumentNullException();
-            if (numbers.Length < 2) throw new ArgumentException();
+            if (numbers.Length < 4) throw new ArgumentException();
             var watch = Stopwatch.StartNew();
             int GCD= numbers.Select(x => Math.Abs(x)).OrderByDescending(c => c).Aggregate(GCD_Euclid);
             watch.Stop();
@@ -39,6 +85,56 @@ namespace Task1
             return GCD;
             
         }
+
+        /// <summary>
+        /// Returns the GCD of more than one number, calculated with Binary algorithm.
+        /// Also calculates ellapsed time in milliseconds
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <returns>The GCD of received values</returns>
+
+        public static int BinaryGCD(int number1, int number2)
+        {
+
+            var watch = Stopwatch.StartNew();
+            int GCD = GCD_Bin(Math.Abs(number1), Math.Abs(number2));
+            watch.Stop();
+            var elapsedMs = watch.Elapsed.TotalMilliseconds;
+            //Debug.WriteLine(elapsedMs);
+            Console.WriteLine(elapsedMs);  //There are some troubles with NUnit3 adapter and Debug.WriteLine 
+                                           //that's why Console.WriteLine is used for test output.
+
+            return GCD;
+
+        }
+
+        /// <summary>
+        /// Returns the GCD of more than one number, calculated with Binary algorithm.
+        /// Also calculates ellapsed time in milliseconds
+        /// </summary>
+        /// <param name="number1">First number</param>
+        /// <param name="number2">Second number</param>
+        /// <param name="number3">Third number</param>
+        /// <returns>The GCD of received values</returns>
+        public static int BinaryGCD(int number1, int number2, int number3)
+        {
+            if (number3 == 0) Swap(ref number1, ref number3);
+            var watch = Stopwatch.StartNew();
+            int GCD = GCD_Bin(Math.Abs(number1), GCD_Euclid(Math.Abs(number2), Math.Abs(number3)));
+            watch.Stop();
+            var elapsedMs = watch.Elapsed.TotalMilliseconds;
+            //Debug.WriteLine(elapsedMs);
+            Console.WriteLine(elapsedMs);  //There are some troubles with NUnit3 adapter and Debug.WriteLine 
+                                           //that's why Console.WriteLine is used for test output.
+
+            return GCD;
+
+        }
+
+
+
+
 
         /// <summary>
         /// Returns the GCD of more than one number, calculated with Binary algorithm.
@@ -117,6 +213,16 @@ namespace Task1
             else return GCD_Bin(number1, (number2 - number1) / 2);
 
         }
+
+
+        private static void Swap(ref int number1, ref int number2)
+        {
+            int temp = number2;
+            number2 = number1;
+            number1 = temp;
+        }
+
+
         #endregion
     }
 }

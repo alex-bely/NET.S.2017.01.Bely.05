@@ -19,17 +19,53 @@ namespace Task1.Tests
         [TestCase(0, 0, 0, 0, -10, ExpectedResult = 10)]
         [TestCase(-15,5,10,55,125, ExpectedResult = 5)]
         [TestCase(-6,-18,-3,-9, ExpectedResult = 3)]
-        [TestCase(13,15,27, ExpectedResult = 1)]
-        [TestCase(5,5, ExpectedResult = 5)]
         [TestCase(int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, ExpectedResult = int.MaxValue)]
         [TestCase(int.MaxValue, 1, int.MaxValue, int.MaxValue, ExpectedResult = 1)]
 
-        public int ClassicGCD_MoreThanOneIntegerNumbers_PositiveTest(params int[] numbers)
+        public int ClassicGCD_MoreThanThreeIntegerNumbers_PositiveTest(params int[] numbers)
         {
             
             return GreatestCommonDivisor.ClassicGCD(numbers);
             
         }
+
+
+        [TestCase(0, 1, ExpectedResult = 1)]
+        [TestCase(0, 100, ExpectedResult = 100)]
+        [TestCase(0, -1, ExpectedResult = 1)]
+        [TestCase(0, -10, ExpectedResult = 10)]
+        [TestCase(-15, 55, ExpectedResult = 5)]
+        [TestCase(-6, -9, ExpectedResult = 3)]
+        [TestCase(13, 27, ExpectedResult = 1)]
+        [TestCase(5, 5, ExpectedResult = 5)]
+        [TestCase(int.MaxValue, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(int.MaxValue, 1,  ExpectedResult = 1)]
+        public int ClassicGCD_TwoIntegerNumbers_PositiveTest(int number1, int number2)
+        {
+
+            return GreatestCommonDivisor.ClassicGCD(number1, number2);
+
+        }
+
+        [TestCase(0, 0, 1, ExpectedResult = 1)]
+        [TestCase(0, 1, 0, ExpectedResult = 1)]
+        [TestCase(1, 0, 0, ExpectedResult = 1)]
+        [TestCase(0, 0, 100, ExpectedResult = 100)]
+        [TestCase(-1, 0, 0, ExpectedResult = 1)]
+        [TestCase(-10, 0, 0, ExpectedResult = 10)]
+        [TestCase(-15, 10, 55, ExpectedResult = 5)]
+        [TestCase(-15, 10, -15, ExpectedResult = 5)]
+        [TestCase(-6, -18, -9, ExpectedResult = 3)]
+        [TestCase(13, 15, 27, ExpectedResult = 1)]
+        [TestCase(int.MaxValue, int.MaxValue, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(int.MaxValue, 1, int.MaxValue, ExpectedResult = 1)]
+        public int ClassicGCD_ThreeIntegerNumbers_PositiveTest(int number1, int number2,int number3)
+        {
+
+            return GreatestCommonDivisor.ClassicGCD(number1, number2, number3);
+
+        }
+
 
 
         [TestCase(0, 0, 0, 0)]
@@ -42,7 +78,21 @@ namespace Task1.Tests
         }
 
 
+        [TestCase(0, 0)]
         
+        public void ClassicGCD_TwoZeros_ThrowsArgumentException(int number1, int number2)
+        {
+            Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.ClassicGCD(number1,number2));
+        }
+
+        [TestCase(0, 0, 0)]
+
+        public void ClassicGCD_ThreeZeros_ThrowsArgumentException(int number1, int number2,int number3)
+        {
+            Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.ClassicGCD(number1, number2, number3));
+        }
+
+
         [TestCase(null)]
        
         public void ClassicGCD_NullParameter_ThrowsArgumentNullException(int[] numbers)
@@ -52,6 +102,45 @@ namespace Task1.Tests
         #endregion
 
         #region BinaryGDC
+
+        [TestCase(0, 1, ExpectedResult = 1)]
+        [TestCase(0, 100, ExpectedResult = 100)]
+        [TestCase(0, -1, ExpectedResult = 1)]
+        [TestCase(0, -10, ExpectedResult = 10)]
+        [TestCase(-15, 55, ExpectedResult = 5)]
+        [TestCase(-6, -9, ExpectedResult = 3)]
+        [TestCase(13, 27, ExpectedResult = 1)]
+        [TestCase(5, 5, ExpectedResult = 5)]
+        [TestCase(int.MaxValue, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(int.MaxValue, 1, ExpectedResult = 1)]
+        public int BinaryGCD_TwoIntegerNumbers_PositiveTest(int number1, int number2)
+        {
+
+            return GreatestCommonDivisor.BinaryGCD(number1, number2);
+
+        }
+
+        [TestCase(0, 0, 1, ExpectedResult = 1)]
+        [TestCase(0, 1, 0, ExpectedResult = 1)]
+        [TestCase(1, 0, 0, ExpectedResult = 1)]
+        [TestCase(0, 0, 100, ExpectedResult = 100)]
+        [TestCase(-1, 0, 0, ExpectedResult = 1)]
+        [TestCase(-10, 0, 0, ExpectedResult = 10)]
+        [TestCase(-15, 10, 55, ExpectedResult = 5)]
+        [TestCase(-15, 10, -15, ExpectedResult = 5)]
+        [TestCase(-6, -18, -9, ExpectedResult = 3)]
+        [TestCase(13, 15, 27, ExpectedResult = 1)]
+        [TestCase(int.MaxValue, int.MaxValue, int.MaxValue, ExpectedResult = int.MaxValue)]
+        [TestCase(int.MaxValue, 1, int.MaxValue, ExpectedResult = 1)]
+        public int BinaryGCD_ThreeIntegerNumbers_PositiveTest(int number1, int number2, int number3)
+        {
+
+            return GreatestCommonDivisor.BinaryGCD(number1, number2, number3);
+
+        }
+
+
+
         [TestCase(0, 0, 0, 0, 1, ExpectedResult = 1)]
         [TestCase(0, 0, 0, 0, 100, ExpectedResult = 100)]
         [TestCase(0, 0, 0, 0, -1, ExpectedResult = 1)]
@@ -80,6 +169,21 @@ namespace Task1.Tests
         {
             Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.BinaryGCD(numbers));
         }
+
+        [TestCase(0, 0)]
+
+        public void BinaryGCD_TwoZeros_ThrowsArgumentException(int number1, int number2)
+        {
+            Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.BinaryGCD(number1, number2));
+        }
+
+        [TestCase(0, 0, 0)]
+
+        public void BinaryGCD_ThreeZeros_ThrowsArgumentException(int number1, int number2, int number3)
+        {
+            Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.BinaryGCD(number1, number2, number3));
+        }
+
 
         [TestCase(null)]
 
